@@ -5,6 +5,7 @@
 #define B_BINARY_START _binary_bwb_exe_start
 #define B_BINARY_END _binary_bwb_exe_end
 #define B_BINARY_OUT "bwb.exe"
+#define RELASE_DIR "temp\\"
 #endif
 
 #include <iostream>
@@ -47,15 +48,17 @@ void exec(string str)
 
 void relase_binary(BinaryFile *binaryFile)
 {
+    string output = RELASE_DIR;
+    output += binaryFile->Out;
     int size = binaryFile->End - binaryFile->Start;
     ofstream fp;
-    fp.open(binaryFile->Out, ios::binary | ios::out); //打开（指定）输出文件
-    fp.write(binaryFile->Start, size);                // write函数各参数意义：待写入数据头指针，写入的数据大小
+    fp.open(output, ios::binary | ios::out); //打开（指定）输出文件
+    fp.write(binaryFile->Start, size);       // write函数各参数意义：待写入数据头指针，写入的数据大小
     fp.close();
     // system(binaryFile->Out.c_str());
     // WinExec(binaryFile->Out.c_str(), SW_NORMAL);
-    exec(binaryFile->Out);
-    cout << "文件 " << binaryFile->Out << " 释放完毕，大小是：" << size << endl;
+    exec(output);
+    // cout << "文件 " << output << " 释放完毕，大小是：" << size << endl;
 }
 
 int main()
@@ -76,6 +79,8 @@ int main()
     B->Start = B_BINARY_START;
     B->End = B_BINARY_END;
     B->Out = B_BINARY_OUT;
+
+    system("mkdir " RELASE_DIR "");
 
     relase_binary(A);
     relase_binary(B);

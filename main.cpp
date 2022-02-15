@@ -33,9 +33,10 @@ string &replace_all_distinct(string &str, const string &old_value, const string 
 
 int main(int argc, char const *argv[])
 {
-    if (argc < 4)
+    if (argc < 5)
     {
-        cout << "使用方法： " << argv[0] << "【文件A_Out】 【文件B_Out】 【输出】" << endl;
+        cout << "使用方法： " << argv[0] << "【文件A】 【文件B】 【输出】 【释放位置】\n"
+             << endl;
         system("pause");
         return 0;
     }
@@ -89,7 +90,7 @@ int main(int argc, char const *argv[])
     ss << "echo #define A_BINARY_END " << A_End << " >> temp.cpp";
     commands[3] = ss.str();
     ss.str("");
-    ss << "echo #define A_BINARY_OUT \"" << A_Out << "\" >> temp.cpp";
+    ss << "echo #define A_BINARY_OUT \"" << argv[4] << A_Out << "\" >> temp.cpp";
     commands[4] = ss.str();
     // 对接文件B
     ss.str("");
@@ -99,7 +100,7 @@ int main(int argc, char const *argv[])
     ss << "echo #define B_BINARY_END " << B_End << " >> temp.cpp";
     commands[6] = ss.str();
     ss.str("");
-    ss << "echo #define B_BINARY_OUT \"" << B_Out << "\" >> temp.cpp";
+    ss << "echo #define B_BINARY_OUT \"" << argv[4] << B_Out << "\" >> temp.cpp";
     commands[7] = ss.str();
     // 对接源码
     commands[8] = "type modle\\modle.cpp >> temp.cpp";
