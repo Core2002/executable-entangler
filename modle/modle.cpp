@@ -1,10 +1,10 @@
-// #define A_BINARY_START _binary_awa_exe_start
-// #define A_BINARY_END _binary_awa_exe_end
-// #define A_BINARY_OUT "awa.exe"
+#define A_BINARY_START _binary_awa_exe_start
+#define A_BINARY_END _binary_awa_exe_end
+#define A_BINARY_OUT "awa.exe"
 
-// #define B_BINARY_START _binary_bwb_exe_start
-// #define B_BINARY_END _binary_bwb_exe_end
-// #define B_BINARY_OUT "bwb.exe"
+#define B_BINARY_START _binary_bwb_exe_start
+#define B_BINARY_END _binary_bwb_exe_end
+#define B_BINARY_OUT "bwb.exe"
 
 #include <iostream>
 #include <fstream>
@@ -27,35 +27,34 @@ void exec(string str)
 
     STARTUPINFO StartInfo;
     PROCESS_INFORMATION pinfo;
-    //ï¿½Ô³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½è¶¨ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½0
+    //¶Ô³ÌÐòµÄÆô¶¯ÐÅÏ¢²»×÷ÈÎºÎÉè¶¨£¬È«²¿Çå0
     memset(&StartInfo, 0, sizeof(STARTUPINFO));
-    StartInfo.cb = sizeof(STARTUPINFO); //ï¿½è¶¨ï¿½á¹¹ï¿½Ä´ï¿½Ð¡
+    StartInfo.cb = sizeof(STARTUPINFO); //Éè¶¨½á¹¹µÄ´óÐ¡
 
     CreateProcess(
-        NULL,                  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½
-        exeName,               //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½exeNameÎªNULLÊ±ï¿½ï¿½ï¿½É½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½
-        NULL,                  //Ê¹ï¿½ï¿½Ä¬ï¿½Ï½ï¿½ï¿½Ì°ï¿½È«ï¿½ï¿½ï¿½ï¿½
-        NULL,                  //Ê¹ï¿½ï¿½Ä¬ï¿½ï¿½ï¿½ß³Ì°ï¿½È«ï¿½ï¿½ï¿½ï¿½
-        TRUE,                  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì³ï¿½
-        NORMAL_PRIORITY_CLASS, //Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¼ï¿½
-        NULL,                  //Ê¹ï¿½Ã¸ï¿½ï¿½ï¿½ï¿½ÌµÄ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-        ".\\",                 //Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿Â¼
-        &StartInfo,            //ï¿½Ó½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
-        &pinfo                 //ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½Â½ï¿½ï¿½ÌµÄ·ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
-    );
+        NULL,                  //Æô¶¯³ÌÐòÂ·¾¶Ãû
+        exeName,               //²ÎÊý£¨µ±exeNameÎªNULLÊ±£¬¿É½«ÃüÁî·ÅÈë²ÎÊýÇ°£©
+        NULL,                  //Ê¹ÓÃÄ¬ÈÏ½ø³Ì°²È«ÊôÐÔ
+        NULL,                  //Ê¹ÓÃÄ¬ÈÏÏß³Ì°²È«ÊôÐÔ
+        TRUE,                  //¾ä±ú²»¼Ì³Ð
+        NORMAL_PRIORITY_CLASS, //Ê¹ÓÃÕý³£ÓÅÏÈ¼¶
+        NULL,                  //Ê¹ÓÃ¸¸½ø³ÌµÄ»·¾³±äÁ¿
+        ".\\",                 //Ö¸¶¨¹¤×÷Ä¿Â¼
+        &StartInfo,            //×Ó½ø³ÌÖ÷´°¿ÚÈçºÎÏÔÊ¾
+        &pinfo);               //ÓÃÓÚ´æ·ÅÐÂ½ø³ÌµÄ·µ»ØÐÅÏ¢
 }
 
 void relase_binary(BinaryFile *binaryFile)
 {
     int size = binaryFile->End - binaryFile->Start;
     ofstream fp;
-    fp.open(binaryFile->Out, ios::binary | ios::out); //ï¿½ò¿ª£ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½
-    fp.write(binaryFile->Start, size);                // writeï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½å£ºï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·Ö¸ï¿½ë£¬Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý´ï¿½Ð¡
+    fp.open(binaryFile->Out, ios::binary | ios::out); //´ò¿ª£¨Ö¸¶¨£©Êä³öÎÄ¼þ
+    fp.write(binaryFile->Start, size);                // writeº¯Êý¸÷²ÎÊýÒâÒå£º´ýÐ´ÈëÊý¾ÝÍ·Ö¸Õë£¬Ð´ÈëµÄÊý¾Ý´óÐ¡
     fp.close();
     // system(binaryFile->Out.c_str());
     // WinExec(binaryFile->Out.c_str(), SW_NORMAL);
     exec(binaryFile->Out);
-    cout << "ï¿½Ä¼ï¿½ " << binaryFile->Out << " ï¿½Í·ï¿½ï¿½ï¿½Ï£ï¿½ï¿½ï¿½Ð¡ï¿½Ç£ï¿½" << size << endl;
+    cout << "ÎÄ¼þ " << binaryFile->Out << " ÊÍ·ÅÍê±Ï£¬´óÐ¡ÊÇ£º" << size << endl;
 }
 
 int main()
@@ -80,7 +79,5 @@ int main()
     relase_binary(A);
     relase_binary(B);
 
-    delete A;
-    delete B;
     // system("pause");
 }
