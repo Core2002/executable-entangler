@@ -1,10 +1,11 @@
+#if !defined(IS_DEBUG)
 #define A_BINARY_START _binary_awa_exe_start
 #define A_BINARY_END _binary_awa_exe_end
 #define A_BINARY_OUT "awa.exe"
-
 #define B_BINARY_START _binary_bwb_exe_start
 #define B_BINARY_END _binary_bwb_exe_end
 #define B_BINARY_OUT "bwb.exe"
+#endif
 
 #include <iostream>
 #include <fstream>
