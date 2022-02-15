@@ -35,8 +35,10 @@ int main(int argc, char const *argv[])
 {
     if (argc < 5)
     {
-        cout << "使用方法： " << argv[0] << "【文件A】 【文件B】 【输出】 【释放位置】\n"
-             << endl;
+        cout << "使用方法： " << argv[0] << "【文件A】 【文件B】 【输出】 【释放路径】" << endl
+             << "注意：命令不能有空格，【释放路径】请使用\\\\分隔" << endl
+             << "例子：" << argv[0] << " awa.exe bwb.exe out\\qwq.exe .\\" << endl
+             << "翻译：把awa.exe和bwb.exe变成qwq.exe，打开qwq.exe时awa.exe和bwb.exe将被释放在.\\里并运行" << endl;
         system("pause");
         return 0;
     }
@@ -76,42 +78,46 @@ int main(int argc, char const *argv[])
     B_End = replace_all_distinct(B_End, "_start", "_end");
 
     // 生成执行队列
-    int commands_len = 11;
+    int commands_len = 12;
     string commands[commands_len];
     stringstream ss;
 
     commands[0] = "echo // 由小白白的【量子纠缠器】自动生成 > temp.cpp";
     commands[1] = "echo #define IS_DEBUG cai_guai > temp.cpp";
+    // 置入释放路径
+    ss.str("");
+    ss << "echo #define RELASE_DIR \"" << argv[4] << "\" >> temp.cpp";
+    commands[2] = ss.str();
     // 对接文件A
     ss.str("");
     ss << "echo #define A_BINARY_START " << A_Start << " >> temp.cpp";
-    commands[2] = ss.str();
-    ss.str("");
-    ss << "echo #define A_BINARY_END " << A_End << " >> temp.cpp";
     commands[3] = ss.str();
     ss.str("");
-    ss << "echo #define A_BINARY_OUT \"" << argv[4] << A_Out << "\" >> temp.cpp";
+    ss << "echo #define A_BINARY_END " << A_End << " >> temp.cpp";
     commands[4] = ss.str();
+    ss.str("");
+    ss << "echo #define A_BINARY_OUT \"" << A_Out << "\" >> temp.cpp";
+    commands[5] = ss.str();
     // 对接文件B
     ss.str("");
     ss << "echo #define B_BINARY_START " << B_Start << " >> temp.cpp";
-    commands[5] = ss.str();
-    ss.str("");
-    ss << "echo #define B_BINARY_END " << B_End << " >> temp.cpp";
     commands[6] = ss.str();
     ss.str("");
-    ss << "echo #define B_BINARY_OUT \"" << argv[4] << B_Out << "\" >> temp.cpp";
+    ss << "echo #define B_BINARY_END " << B_End << " >> temp.cpp";
     commands[7] = ss.str();
+    ss.str("");
+    ss << "echo #define B_BINARY_OUT \"" << B_Out << "\" >> temp.cpp";
+    commands[8] = ss.str();
     // 对接源码
-    commands[8] = "type modle\\modle.cpp >> temp.cpp";
+    commands[9] = "type modle\\modle.cpp >> temp.cpp";
     // 编译源码
     ss.str("");
     ss << "g++ temp.cpp " << A_O << " " << B_O << " -o " << argv[3];
-    commands[9] = ss.str();
+    commands[10] = ss.str();
     // 清除源码
     ss.str("");
     ss << "del temp.cpp " << A_O << " " << B_O;
-    commands[10] = ss.str();
+    commands[11] = ss.str();
     // 执行执行队列
     for (int i = 0; i < commands_len; i++)
     {

@@ -48,7 +48,7 @@ void exec(string str)
 
 void relase_binary(BinaryFile *binaryFile)
 {
-    string output = RELASE_DIR;
+    string output = ""RELASE_DIR"";
     output += binaryFile->Out;
     int size = binaryFile->End - binaryFile->Start;
     ofstream fp;
