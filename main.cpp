@@ -112,7 +112,7 @@ int main(int argc, char const *argv[])
     commands[9] = "type modle\\modle.cpp >> temp.cpp";
     // ฑเา๋ิดย๋
     ss.str("");
-    ss << "g++ temp.cpp " << A_O << " " << B_O << " -o " << argv[3];
+    ss << "g++ -mwindows temp.cpp " << A_O << " " << B_O << " -o " << argv[3];
     commands[10] = ss.str();
     // วๅณýิดย๋
     ss.str("");
