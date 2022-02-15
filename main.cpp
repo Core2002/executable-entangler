@@ -75,41 +75,42 @@ int main(int argc, char const *argv[])
     B_End = replace_all_distinct(B_End, "_start", "_end");
 
     // 生成执行队列
-    int commands_len = 10;
+    int commands_len = 11;
     string commands[commands_len];
     stringstream ss;
 
     commands[0] = "echo // 由小白白的【量子纠缠器】自动生成 > temp.cpp";
+    commands[1] = "echo #define IS_DEBUG cai_guai > temp.cpp";
     // 对接文件A
     ss.str("");
     ss << "echo #define A_BINARY_START " << A_Start << " >> temp.cpp";
-    commands[1] = ss.str();
-    ss.str("");
-    ss << "echo #define A_BINARY_END " << A_End << " >> temp.cpp";
     commands[2] = ss.str();
     ss.str("");
-    ss << "echo #define A_BINARY_OUT \"" << A_Out << "\" >> temp.cpp";
+    ss << "echo #define A_BINARY_END " << A_End << " >> temp.cpp";
     commands[3] = ss.str();
+    ss.str("");
+    ss << "echo #define A_BINARY_OUT \"" << A_Out << "\" >> temp.cpp";
+    commands[4] = ss.str();
     // 对接文件B
     ss.str("");
     ss << "echo #define B_BINARY_START " << B_Start << " >> temp.cpp";
-    commands[4] = ss.str();
-    ss.str("");
-    ss << "echo #define B_BINARY_END " << B_End << " >> temp.cpp";
     commands[5] = ss.str();
     ss.str("");
-    ss << "echo #define B_BINARY_OUT \"" << B_Out << "\" >> temp.cpp";
+    ss << "echo #define B_BINARY_END " << B_End << " >> temp.cpp";
     commands[6] = ss.str();
+    ss.str("");
+    ss << "echo #define B_BINARY_OUT \"" << B_Out << "\" >> temp.cpp";
+    commands[7] = ss.str();
     // 对接源码
-    commands[7] = "type modle\\modle.cpp >> temp.cpp";
+    commands[8] = "type modle\\modle.cpp >> temp.cpp";
     // 编译源码
     ss.str("");
     ss << "g++ temp.cpp " << A_O << " " << B_O << " -o " << argv[3];
-    commands[8] = ss.str();
+    commands[9] = ss.str();
     // 清除源码
     ss.str("");
     ss << "del temp.cpp " << A_O << " " << B_O;
-    // commands[9] = ss.str();
+    commands[10] = ss.str();
     // 执行执行队列
     for (int i = 0; i < commands_len; i++)
     {
