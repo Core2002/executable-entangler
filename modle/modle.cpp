@@ -31,7 +31,7 @@ void exec(string str)
     memset(&StartInfo, 0, sizeof(STARTUPINFO));
     StartInfo.cb = sizeof(STARTUPINFO); //设定结构的大小
 
-    BOOL ret = CreateProcess(
+    CreateProcess(
         NULL,                  //启动程序路径名
         exeName,               //参数（当exeName为NULL时，可将命令放入参数前）
         NULL,                  //使用默认进程安全属性
